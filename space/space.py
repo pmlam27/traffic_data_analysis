@@ -31,20 +31,6 @@ df_merged = df_merged[df_merged['period_from'] == "2025-02-17 15"]
 df_merged['period_from'] = pd.to_datetime(df_merged['period_from']+":00:00")
 
 
-
-# print(df_merged)
-
-# # Create a base map centered around the mean latitude and longitude
-# map_center = [df_merged['Latitude'].mean(), df_merged['Longitude'].mean()]
-# m = folium.Map(location=map_center, zoom_start=12)
-
-
-# # Create a heatmap for average speed
-# heat_data = [[row['Latitude'], row['Longitude'], row['average_speed']] for idx, row in df_merged.iterrows()]
-# HeatMap(heat_data).add_to(m)
-
-# m.save('heatmap.html')
-
 # Create a base map centered around the mean latitude and longitude
 map_center = [df_merged['Latitude'].mean(), df_merged['Longitude'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
@@ -63,14 +49,3 @@ for idx, row in df_merged.iterrows():
 
 # Display the map
 m.save('small_markers_map.html')
-
-# # Add markers for each detector
-# for idx, row in df_merged.iterrows():
-#     folium.Marker(
-#         location=[row['Latitude'], row['Longitude']],
-#         popup=f"Detector: {row['detector_id']}<br>Speed: {row['average_speed']}<br>Volume: {row['total_volume']}",
-#         icon=folium.Icon(color='blue')
-#     ).add_to(m)
-
-# # Display the map
-# m.save('detector_map.html')  # Save to an HTML file or use m.show() in a Jupyter notebook
