@@ -40,7 +40,6 @@ class TrafficData:
             for detector in period.find('detectors'):
                 detector_id = detector.find('detector_id').text
                 direction = detector.find('direction').text
-
                 # Iterate over lanes
                 for lane in detector.find('lanes'):
                     lane_id = lane.find('lane_id').text
@@ -62,15 +61,22 @@ folder_path = "202502/"
 count = 0
 for filename in os.listdir(folder_path):
     if filename.endswith('.xml') and filename.startswith('202502'):
-        full_path = os.path.join(folder_path, filename)
-        print(full_path)
-        count += 1
-        traffic_data.add_XML_as_record(full_path)
+        if (filename.startswith('20250217') or 
+            filename.startswith('20250218') or 
+            filename.startswith('20250219') or 
+            filename.startswith('20250220') or 
+            filename.startswith('20250221') or 
+            filename.startswith('20250222') or
+            filename.startswith('20250223')):
+            full_path = os.path.join(folder_path, filename)
+            print(full_path)
+            count += 1
+            traffic_data.add_XML_as_record(full_path)
 
 traffic_data.convert_to_data_frame()
 print(traffic_data.df)
 
 # Export the DataFrame to a CSV file
-traffic_data.df.to_csv('traffic_data_2025_02.csv', index=False)
+traffic_data.df.to_csv('traffic_data_2025_02_17_to_23.csv', index=False)
 
 print(count)
